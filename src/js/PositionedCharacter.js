@@ -1,4 +1,4 @@
-import Character from './Character.js';
+import Character from './Character';
 
 export default class PositionedCharacter {
   constructor(character, position) {

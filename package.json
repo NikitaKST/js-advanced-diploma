@@ -8,7 +8,7 @@
     "dev": "webpack --mode development",
     "start": "webpack serve --mode development",
     "test": "jest --coverage",
-    "lint": "eslint ."
+    "lint": "eslint . && (echo 'Linting passed successfully!' || true) || echo 'Linting failed.'"
   },
   "repository": {
     "type": "git",

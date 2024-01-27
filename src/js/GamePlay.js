@@ -1,4 +1,4 @@
-import { calcHealthLevel, calcTileType } from './utils.js';
+import { calcHealthLevel, calcTileType } from './utils';
 
 export default class GamePlay {
   constructor() {
@@ -71,23 +71,21 @@ export default class GamePlay {
    * @param positions array of PositionedCharacter objects
    */
   redrawPositions(positions) {
-    for (const cell of this.cells) {
+    for (let i = 0; i < this.cells.length; i += 1) {
+      const cell = this.cells[i];
       cell.innerHTML = '';
     }
-
-    for (const position of positions) {
+    for (let j = 0; j < positions.length; j += 1) {
+      const position = positions[j];
       const cellEl = this.boardEl.children[position.position];
       const charEl = document.createElement('div');
       charEl.classList.add('character', position.character.type);
-
       const healthEl = document.createElement('div');
       healthEl.classList.add('health-level');
-
       const healthIndicatorEl = document.createElement('div');
       healthIndicatorEl.classList.add('health-level-indicator', `health-level-indicator-${calcHealthLevel(position.character.health)}`);
       healthIndicatorEl.style.width = `${position.character.health}%`;
       healthEl.appendChild(healthIndicatorEl);
-
       charEl.appendChild(healthEl);
       cellEl.appendChild(charEl);
     }
@@ -180,10 +178,12 @@ export default class GamePlay {
   }
 
   static showError(message) {
+    // eslint-disable-next-line no-alert
     alert(message);
   }
 
   static showMessage(message) {
+    // eslint-disable-next-line no-alert
     alert(message);
   }
 

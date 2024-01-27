@@ -3,16 +3,16 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-mixed-operators */
 /* eslint-disable no-unused-expressions */
-import themes from './themes.js';
-import PositionedCharacter from './PositionedCharacter.js';
-import { installPrototype } from './utils.js';
-import GameState from './GameState.js';
+import themes from './themes';
+import PositionedCharacter from './PositionedCharacter';
+import { installPrototype } from './utils';
+import GameState from './GameState';
 import {
   generateMessage, generatePositionComputer, generatePositionPlayer,
   characterGenerator, generateRandomKey, generateTeam,
-} from './generators.js';
-import GamePlay from './GamePlay.js';
-import cursors from './cursors.js';
+} from './generators';
+import GamePlay from './GamePlay';
+import cursors from './cursors';
 
 export default class GameController {
   constructor(gamePlay, stateService) {
@@ -60,22 +60,26 @@ export default class GameController {
 
   generatePlayersonBoard() {
     const arrPlayerPosition = [];
-    for (const el of this.gameState.teamsPlayer.teams) {
+    const teamsPlayer = this.gameState.teamsPlayer.teams;
+    for (let i = 0; i < teamsPlayer.length;) {
       let position = generatePositionPlayer(this.gamePlay.position);
       while (arrPlayerPosition.includes(position)) {
         position = generatePositionPlayer(this.gamePlay.position);
       }
       arrPlayerPosition.push(position);
-      this.gameState.teamsPositions.push(new PositionedCharacter(el, position));
+      this.gameState.teamsPositions.push(new PositionedCharacter(teamsPlayer[i], position));
+      i += 1;
     }
     const arrComputerPosition = [];
-    for (const item of this.gameState.teamsComputer.teams) {
+    const teamsComputer = this.gameState.teamsComputer.teams;
+    for (let i = 0; i < teamsComputer.length;) {
       let positionComp = generatePositionComputer(this.gamePlay.position);
       while (arrComputerPosition.includes(positionComp)) {
         positionComp = generatePositionComputer(this.gamePlay.position);
       }
       arrComputerPosition.push(positionComp);
-      this.gameState.teamsPositions.push(new PositionedCharacter(item, positionComp));
+      this.gameState.teamsPositions.push(new PositionedCharacter(teamsComputer[i], positionComp));
+      i += 1;
     }
     this.gameState.filterTeamsPosition();
   }
@@ -279,14 +283,17 @@ export default class GameController {
       if (this.gameState.selectPositionIndex) {
         this.gamePlay.selectCell(this.gameState.selectPositionIndex);
       }
+      // eslint-disable-next-line no-alert
       alert('Игра загружена');
     } else {
+      // eslint-disable-next-line no-alert
       alert('Нет сохраненной игры');
     }
   }
 
   onSaveGameClick() {
     this.stateService.save(this.gameState);
+    // eslint-disable-next-line no-alert
     alert('Игра сохранена');
   }
 
@@ -471,14 +478,15 @@ export default class GameController {
       });
 
       let indexComputer;
-      // // we go through the player’s positions for the possibility of attack
-      for (const comp of computerTeamPosition) {
+      for (let compIndex = 0; compIndex < computerTeamPosition.length; compIndex += 1) {
+        const comp = computerTeamPosition[compIndex];
         if (positionAttack) {
           break;
         }
         this.showOpportunityAttack(comp, this.gameState.searchHero(comp).rangeAttack);
         indexComputer = this.gameState.searchHero(comp);
-        for (const item of playerTeamPosition) {
+        for (let itemIndex = 0; itemIndex < playerTeamPosition.length; itemIndex += 1) {
+          const item = playerTeamPosition[itemIndex];
           if (this.gameState.computerPosibleAttack.includes(item)) {
             positionAttack = item;
             break;
@@ -501,6 +509,7 @@ export default class GameController {
       if (this.gameState.level > 4) {
         this.gameState.level = 4;
         this.gameState.blockBoard();
+        // eslint-disable-next-line no-alert
         alert(`Поздравляем, Вы победили! Ваши очки ${this.gameState.score}`);
       } else {
         this.levelUpGame();

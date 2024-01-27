@@ -24,12 +24,12 @@
  * ```
  * */
 
-import Swordsman from './characters/Swordsman.js';
-import Magician from './characters/Magician.js';
-import Bowman from './characters/Bowman.js';
-import Undead from './characters/Undead.js';
-import Daemon from './characters/Daemon.js';
-import Vampire from './characters/Vampire.js';
+import Swordsman from './characters/Swordsman';
+import Magician from './characters/Magician';
+import Bowman from './characters/Bowman';
+import Undead from './characters/Undead';
+import Daemon from './characters/Daemon';
+import Vampire from './characters/Vampire';
 
 export function calcTileType(index, boardSize) {
   const lastField = boardSize ** 2 - 1;

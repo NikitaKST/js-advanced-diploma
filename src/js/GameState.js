@@ -1,10 +1,10 @@
-import Bowman from './characters/Bowman.js';
-import Daemon from './characters/Daemon.js';
-import Magician from './characters/Magician.js';
-import Swordsman from './characters/Swordsman.js';
-import Undead from './characters/Undead.js';
-import Vampire from './characters/Vampire.js';
-import Team from './Team.js';
+import Bowman from './characters/Bowman';
+import Daemon from './characters/Daemon';
+import Magician from './characters/Magician';
+import Swordsman from './characters/Swordsman';
+import Undead from './characters/Undead';
+import Vampire from './characters/Vampire';
+import Team from './Team';
 
 export default class GameState {
   constructor() {
@@ -75,6 +75,7 @@ export default class GameState {
     if (this.score < this.record) {
       this.record = this.score;
     }
+    // eslint-disable-next-line no-alert
     alert('Вы проиграли');
   }
 
