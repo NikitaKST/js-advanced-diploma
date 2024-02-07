@@ -4,7 +4,27 @@ export default class GameStateService {
   }
 
   save(state) {
-    this.storage.setItem('state', JSON.stringify(state));
+    const savedState = {
+      level: state.level,
+      countCharacters: state.countCharacters,
+      score: state.score,
+      survivors: state.survivors,
+      teamsPlayer: state.teamsPlayer.teams.map((char) => ({
+        type: char.type,
+        level: char.level,
+        health: char.health,
+        attack: char.attack,
+        defence: char.defence,
+      })),
+      teamsComputer: state.teamsComputer.teams.map((char) => ({
+        type: char.type,
+        level: char.level,
+        health: char.health,
+        attack: char.attack,
+        defence: char.defence,
+      })),
+    };
+    this.storage.setItem('state', JSON.stringify(savedState));
   }
 
   load() {
